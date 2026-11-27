@@ -58,6 +58,12 @@ public class UpdateManager {
                 String cleanBase = serverBaseUrl.endsWith("/") ? serverBaseUrl.substring(0, serverBaseUrl.length() - 1) : serverBaseUrl.trim();
                 candidates.add(cleanBase);
             }
+            if (!candidates.contains("https://krinalpixster-sketch.github.io/spendwise-app")) {
+                candidates.add(0, "https://krinalpixster-sketch.github.io/spendwise-app");
+            }
+            if (!candidates.contains("https://github.com/krinalpixster-sketch/spendwise-app/raw/main")) {
+                candidates.add(0, "https://github.com/krinalpixster-sketch/spendwise-app/raw/main");
+            }
             if (!candidates.contains("https://raw.githubusercontent.com/krinalpixster-sketch/spendwise-app/main")) {
                 candidates.add(0, "https://raw.githubusercontent.com/krinalpixster-sketch/spendwise-app/main");
             }
@@ -101,11 +107,25 @@ public class UpdateManager {
                 try {
                     URL url = new URL(base + "/version.json");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setConnectTimeout(2500);
-                    conn.setReadTimeout(2500);
+                    conn.setInstanceFollowRedirects(true);
+                    conn.setConnectTimeout(4000);
+                    conn.setReadTimeout(4000);
                     conn.setRequestMethod("GET");
 
-                    if (conn.getResponseCode() == 200) {
+                    int respCode = conn.getResponseCode();
+                    if (respCode == HttpURLConnection.HTTP_MOVED_TEMP || respCode == HttpURLConnection.HTTP_MOVED_PERM || respCode == 307 || respCode == 308) {
+                        String newLoc = conn.getHeaderField("Location");
+                        if (newLoc != null && !newLoc.isEmpty()) {
+                            conn.disconnect();
+                            conn = (HttpURLConnection) new URL(newLoc).openConnection();
+                            conn.setInstanceFollowRedirects(true);
+                            conn.setConnectTimeout(4000);
+                            conn.setReadTimeout(4000);
+                            respCode = conn.getResponseCode();
+                        }
+                    }
+
+                    if (respCode == 200) {
                         connectedAny = true;
                         BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         StringBuilder sb = new StringBuilder();
