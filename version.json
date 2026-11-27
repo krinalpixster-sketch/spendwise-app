@@ -1,6 +1,6 @@
 {
   "versionCode": 10,
   "versionName": "2.4.0",
-  "apkUrl": "https://careers-ignored-memo-badge.trycloudflare.com/SpendWise.apk",
+  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.4.0/SpendWise.apk",
   "releaseNotes": "🎨 SpendWise v2.4.0 Theme & Settings Upgrade:\n• ☀️ Light, 🌙 Dark, & ⚙️ System Themes: Seamless dynamic switching with OLED pitch black and Revolut clean light styling\n• 📱 Dedicated Full-Screen Settings: Dedicated page replacing popup dialogs\n• 👁️ Privacy Mode & Target Budget Controls: Easy inline switches and budget adjusters with asterisk masking (*)\n• 📄 CSV Statements & Data Management: 1-tap ledger export and history reset"
 }
