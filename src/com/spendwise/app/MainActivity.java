@@ -218,27 +218,55 @@ public class MainActivity extends Activity {
         layoutBankBars = findViewById(R.id.layout_bank_bars);
 
         // Quick Action Buttons
-        findViewById(R.id.btn_action_add).setOnClickListener(v -> showAddExpenseDialog());
-        findViewById(R.id.btn_action_budget).setOnClickListener(v -> promptChangeBudget());
-        findViewById(R.id.btn_action_test).setOnClickListener(v -> simulateRandomTransaction());
-        findViewById(R.id.btn_action_clear).setOnClickListener(v -> confirmClearData());
+        View btnAdd = findViewById(R.id.btn_action_add);
+        View btnBudget = findViewById(R.id.btn_action_budget);
+        View btnTest = findViewById(R.id.btn_action_test);
+        View btnClear = findViewById(R.id.btn_action_clear);
+        btnAdd.setOnClickListener(v -> showAddExpenseDialog());
+        btnBudget.setOnClickListener(v -> promptChangeBudget());
+        btnTest.setOnClickListener(v -> simulateRandomTransaction());
+        btnClear.setOnClickListener(v -> confirmClearData());
 
         // Bottom Navigation Tabs
         final android.widget.ScrollView mainScrollView = findViewById(R.id.main_scroll_view);
-        findViewById(R.id.nav_ledger).setOnClickListener(v -> {
+        View navLedger = findViewById(R.id.nav_ledger);
+        View navInsights = findViewById(R.id.nav_insights);
+        View navBudget = findViewById(R.id.nav_budget);
+        View navSettings = findViewById(R.id.nav_settings);
+
+        navLedger.setOnClickListener(v -> {
+            UIAnimator.popView(v);
             if (mainScrollView != null) mainScrollView.smoothScrollTo(0, 0);
-            Toast.makeText(this, "Ledger (Top)", Toast.LENGTH_SHORT).show();
         });
-        findViewById(R.id.nav_insights).setOnClickListener(v -> {
+        navInsights.setOnClickListener(v -> {
+            UIAnimator.popView(v);
             Intent intent = new Intent(MainActivity.this, InsightsActivity.class);
             intent.putExtra("selected_month", selectedMonth);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
-        findViewById(R.id.nav_budget).setOnClickListener(v -> promptChangeBudget());
-        findViewById(R.id.nav_settings).setOnClickListener(v -> {
+        navBudget.setOnClickListener(v -> {
+            UIAnimator.popView(v);
+            promptChangeBudget();
+        });
+        navSettings.setOnClickListener(v -> {
+            UIAnimator.popView(v);
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
+
+        // Attach tactile spring press bounce across interactive controls
+        UIAnimator.attachPressBounce(
+                btnAdd, btnBudget, btnTest, btnClear,
+                btnDailySafeAllowance, btnChhotaKharcha, btnNoSpendStreak,
+                btnPrivacyToggle, btnMonthSelector,
+                navLedger, navInsights, navBudget, navSettings
+        );
+
+        if (mainScrollView != null && mainScrollView.getChildCount() > 0 && mainScrollView.getChildAt(0) instanceof android.view.ViewGroup) {
+            UIAnimator.animateChildrenStaggered((android.view.ViewGroup) mainScrollView.getChildAt(0), 55);
+        }
 
         checkPermissions();
         refreshUI();
@@ -801,7 +829,7 @@ public class MainActivity extends Activity {
         tvBudgetCaption.setText("Monthly target: " + formatMoneyInt(budget));
         tvRemainingBalance.setText(formatMoney(remaining));
         tvBudgetPct.setText(String.format(Locale.US, "%.0f%% left", pctLeft));
-        pbBudget.setProgress(progress);
+        UIAnimator.animateProgress(pbBudget, progress);
 
         if (remaining >= 0) {
             tvBadgeStatus.setText("● On Track ⓘ");

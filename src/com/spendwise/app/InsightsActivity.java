@@ -50,12 +50,20 @@ public class InsightsActivity extends Activity {
             selectedMonth = passedMonth;
         }
 
-        findViewById(R.id.btn_insights_back).setOnClickListener(v -> finish());
+        View btnBack = findViewById(R.id.btn_insights_back);
+        btnBack.setOnClickListener(v -> finish());
+        UIAnimator.attachPressBounce(btnBack);
 
         TextView tvMonthPill = findViewById(R.id.tv_insights_month_pill);
         tvMonthPill.setText(formatMonthLabel(selectedMonth));
 
         refreshInsights();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
@@ -292,6 +300,14 @@ public class InsightsActivity extends Activity {
                 gd.setColor(getColor(R.color.accent_emerald));
             }
             bar.setBackground(gd);
+            bar.setPivotY(barHeight);
+            bar.setScaleY(0f);
+            bar.animate()
+                    .scaleY(1f)
+                    .setDuration(420)
+                    .setStartDelay(i * 45L)
+                    .setInterpolator(new android.view.animation.DecelerateInterpolator(1.6f))
+                    .start();
             col.addView(bar);
 
             // Day label at bottom

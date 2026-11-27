@@ -51,6 +51,21 @@ public class SettingsActivity extends Activity {
         setupPrivacyMode();
         setupBudgetSetting();
         setupDataActions();
+
+        UIAnimator.attachPressBounce(
+                findViewById(R.id.btn_back),
+                btnThemeLight, btnThemeDark, btnThemeSystem,
+                findViewById(R.id.row_privacy_mode),
+                findViewById(R.id.row_target_budget),
+                findViewById(R.id.row_export_csv),
+                findViewById(R.id.row_reset_data)
+        );
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     private void initViews() {

@@ -1,6 +1,6 @@
 {
-  "versionCode": 17,
-  "versionName": "2.6.3",
-  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.6.3/SpendWise.apk",
-  "releaseNotes": "🕒 SpendWise v2.6.3 Date & Time + Undo Update:\n• 🕒 Date & Time on Transactions: Every new SMS & manual transaction now records exact time (e.g. 2026-11-27 03:45 PM) in Ledger and Receipt\n• ↩️ Instant Undo Banner: Restore deleted transactions in 1 tap"
+  "versionCode": 18,
+  "versionName": "3.0.0",
+  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v3.0.0/SpendWise.apk",
+  "releaseNotes": "🎨 SpendWise v3.0.0 Premium UI & Animations Upgrade:\n• ✨ Floating Pill Bottom Dock with glowing active tab highlight\n• 💳 Upgraded Metallic Hero Card with indigo rim glow\n• 🎯 Spring Press Bounce & Ripple Feedback on every button, card & tab\n• 📊 Smooth Animated Progress Bars, Staggered Card Entrances & Growing Weekly Chart Bars\n• 🚀 Slide Transitions across Ledger, Insights & Settings"
 }

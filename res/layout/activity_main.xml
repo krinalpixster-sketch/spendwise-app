@@ -918,17 +918,22 @@
 
     </LinearLayout>
 
-    <!-- FIXED NATIVE BOTTOM NAVIGATION BAR (ELEVATED & HIGH CONTRAST) -->
+    <!-- FLOATING PILL BOTTOM NAVIGATION DOCK -->
     <LinearLayout
         android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="68dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         android:background="@drawable/bottom_nav_bg"
         android:orientation="horizontal"
-        android:elevation="12dp"
+        android:elevation="14dp"
         android:gravity="center_vertical">
 
         <!-- Tab 1: Ledger (Active) -->
@@ -941,13 +946,15 @@
             android:gravity="center"
             android:clickable="true"
             android:focusable="true"
-            android:paddingVertical="4dp">
+            android:background="@drawable/nav_tab_active_bg"
+            android:paddingVertical="6dp"
+            android:layout_marginHorizontal="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="📜"
-                android:textSize="20sp" />
+                android:textSize="19sp" />
 
             <TextView
                 android:layout_width="wrap_content"
