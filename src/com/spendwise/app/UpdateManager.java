@@ -54,33 +54,20 @@ public class UpdateManager {
     public static void checkForUpdate(final Context context, final String serverBaseUrl, final UpdateCallback callback) {
         new Thread(() -> {
             java.util.List<String> candidates = new java.util.ArrayList<>();
+            candidates.add("https://krinalpixster-sketch.github.io/spendwise-app");
+
             if (serverBaseUrl != null && !serverBaseUrl.trim().isEmpty()) {
                 String cleanBase = serverBaseUrl.endsWith("/") ? serverBaseUrl.substring(0, serverBaseUrl.length() - 1) : serverBaseUrl.trim();
-                candidates.add(cleanBase);
-            }
-            if (!candidates.contains("https://krinalpixster-sketch.github.io/spendwise-app")) {
-                candidates.add(0, "https://krinalpixster-sketch.github.io/spendwise-app");
-            }
-            if (!candidates.contains("https://github.com/krinalpixster-sketch/spendwise-app/raw/main")) {
-                candidates.add(0, "https://github.com/krinalpixster-sketch/spendwise-app/raw/main");
+                if (!candidates.contains(cleanBase)) candidates.add(cleanBase);
             }
             if (!candidates.contains("https://raw.githubusercontent.com/krinalpixster-sketch/spendwise-app/main")) {
-                candidates.add(0, "https://raw.githubusercontent.com/krinalpixster-sketch/spendwise-app/main");
+                candidates.add("https://raw.githubusercontent.com/krinalpixster-sketch/spendwise-app/main");
             }
             if (!candidates.contains("https://careers-ignored-memo-badge.trycloudflare.com")) {
                 candidates.add("https://careers-ignored-memo-badge.trycloudflare.com");
             }
             if (!candidates.contains("http://192.168.0.107:8502")) {
                 candidates.add("http://192.168.0.107:8502");
-            }
-            if (!candidates.contains("http://192.168.0.85:8502")) {
-                candidates.add("http://192.168.0.85:8502");
-            }
-            if (!candidates.contains("http://192.168.0.185:8502")) {
-                candidates.add("http://192.168.0.185:8502");
-            }
-            if (!candidates.contains("http://192.168.0.173:8502")) {
-                candidates.add("http://192.168.0.173:8502");
             }
 
             // Probe adjacent IPs around the phone's own Wi-Fi IP
@@ -106,6 +93,7 @@ public class UpdateManager {
             for (String base : candidates) {
                 try {
                     URL url = new URL(base + "/version.json");
+                    Log.i(TAG, "Probing update candidate: " + url);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setInstanceFollowRedirects(true);
                     conn.setConnectTimeout(4000);
@@ -141,22 +129,19 @@ public class UpdateManager {
                         String releaseNotes = json.optString("releaseNotes", "Performance improvements & bug fixes.");
                         String apkUrl = json.optString("apkUrl", base + "/SpendWise.apk");
 
-                        // If a fallback URL worked, update settings in DB
-                        try {
-                            SpendWiseDbHelper db = new SpendWiseDbHelper(context);
-                            if (!base.equals(db.getServerUrl())) {
-                                db.setServerUrl(base);
-                            }
-                        } catch (Exception ignored) {}
+                        Log.i(TAG, "Server version: " + serverVersionCode + " (v" + serverVersionName + ")");
 
                         PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
                         int currentVersionCode = pInfo.versionCode;
+                        Log.i(TAG, "Current installed version: " + currentVersionCode);
 
                         if (serverVersionCode > currentVersionCode) {
+                            Log.i(TAG, "Update AVAILABLE! Showing popup...");
                             final UpdateInfo info = new UpdateInfo(serverVersionCode, serverVersionName, apkUrl, releaseNotes);
                             new Handler(Looper.getMainLooper()).post(() -> callback.onUpdateAvailable(info));
                             return;
                         } else {
+                            Log.i(TAG, "App is up to date.");
                             new Handler(Looper.getMainLooper()).post(callback::onNoUpdate);
                             return;
                         }

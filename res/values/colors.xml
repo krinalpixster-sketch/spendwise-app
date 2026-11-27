@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light Mode (Fintech Minimal Apple Wallet / Revolut Style) -->
+    <color name="bg_dark">#F4F6F9</color>
+    <color name="card_hero_start">#FFFFFF</color>
+    <color name="card_hero_end">#F1F5F9</color>
+    <color name="card_surface">#FFFFFF</color>
+    <color name="card_border">#E2E8F0</color>
+    <color name="card_border_subtle">#EDF2F7</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="card_stroke">#E2E8F0</color>
+    <color name="progress_track">#E2E8F0</color>
+    <color name="divider_color">#EDF2F7</color>
+    <color name="theme_selector_unselected">#E2E8F0</color>
+    <color name="theme_selector_selected">#4F46E5</color>
+    
+    <color name="accent_emerald">#059669</color>
+    <color name="accent_rose">#E11D48</color>
+    <color name="accent_indigo">#4F46E5</color>
+    <color name="primary_indigo">#4F46E5</color>
+    <color name="accent_cyan">#0284C7</color>
+    <color name="accent_purple">#7C3AED</color>
+    <color name="accent_amber">#D97706</color>
+    <color name="accent_coral">#EA580C</color>
+    <color name="accent_orange">#EA580C</color>
+
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="text_muted">#94A3B8</color>
+    <color name="white">#FFFFFF</color>
+</resources>

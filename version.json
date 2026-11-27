@@ -1,6 +1,6 @@
 {
   "versionCode": 11,
-  "versionName": "2.4.1",
-  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.4.0/SpendWise.apk",
-  "releaseNotes": "🚀 SpendWise v2.4.1 Seamless OTA Test:\n• Automatic on-launch update popup verified!\n• Light, Dark & System themes fully activated"
+  "versionName": "2.5.0",
+  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.5.0/SpendWise.apk",
+  "releaseNotes": "✨ SpendWise v2.5.0 Onboarding & Experience Upgrade:\n• 🌟 Meaningful 3-Step Onboarding Walkthrough explaining core app purpose:\n  1. ⚡ Automatic Spend Tracking via Bank & UPI SMS alerts\n  2. 🛡️ Dynamic Daily Safe Limit & Micro-Spends discipline\n  3. 🔒 100% On-Device Privacy & Bank-grade Security\n• 📖 Re-open tutorial anytime via Settings > How SpendWise Works"
 }
