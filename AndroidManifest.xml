@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spendwise.app"
-    android:versionCode="13"
-    android:versionName="2.5.2">
+    android:versionCode="14"
+    android:versionName="2.6.0">
 
     <uses-sdk
         android:minSdkVersion="24"
@@ -47,6 +47,10 @@
 
         <activity
             android:name=".OnboardingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".InsightsActivity"
             android:exported="false" />
 
         <!-- Real-Time Background SMS Listener -->

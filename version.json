@@ -1,6 +1,6 @@
 {
-  "versionCode": 13,
-  "versionName": "2.5.2",
-  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.5.2/SpendWise.apk",
-  "releaseNotes": "✨ SpendWise v2.5.2 Clean Receipt Update:\n• 🧾 Cleaner Transaction Receipt (removed raw Bank SMS Proof section)\n• 🌟 Meaningful 3-Step Onboarding Walkthrough"
+  "versionCode": 14,
+  "versionName": "2.6.0",
+  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.6.0/SpendWise.apk",
+  "releaseNotes": "📊 SpendWise v2.6.0 Dedicated Insights Upgrade:\n• 📅 Month-vs-Month Comparison: Track % and ₹ difference vs last month\n• 🔮 Month-End Forecast: Real-time spending projection vs monthly budget\n• 📊 Weekly Spending Pattern: Mon–Sun visual bar chart with Weekday vs Weekend split"
 }

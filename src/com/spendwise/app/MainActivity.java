@@ -211,11 +211,9 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "Ledger (Top)", Toast.LENGTH_SHORT).show();
         });
         findViewById(R.id.nav_insights).setOnClickListener(v -> {
-            View cardCategory = findViewById(R.id.card_category_breakdown);
-            if (cardCategory != null && mainScrollView != null) {
-                mainScrollView.smoothScrollTo(0, cardCategory.getTop() - 30);
-            }
-            Toast.makeText(this, "Category Insights", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, InsightsActivity.class);
+            intent.putExtra("selected_month", selectedMonth);
+            startActivity(intent);
         });
         findViewById(R.id.nav_budget).setOnClickListener(v -> promptChangeBudget());
         findViewById(R.id.nav_settings).setOnClickListener(v -> {
