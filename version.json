@@ -1,6 +1,6 @@
 {
-  "versionCode": 15,
-  "versionName": "2.6.1",
-  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.6.1/SpendWise.apk",
-  "releaseNotes": "📊 SpendWise v2.6.1 Live Insights:\n• 🔄 100% Real-Time SQLite Data Sync on Insights screen\n• 📅 Month-vs-Month Comparison, Month-End Forecast & Weekly Bar Chart"
+  "versionCode": 16,
+  "versionName": "2.6.2",
+  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.6.2/SpendWise.apk",
+  "releaseNotes": "↩️ SpendWise v2.6.2 Undo Delete Upgrade:\n• ↩️ Instant Undo Banner: Accidentally deleted a transaction (via swipe or receipt)? Tap UNDO within 5 seconds to restore it immediately!\n• 📊 Real-time SQLite Insights & Clean Receipts"
 }

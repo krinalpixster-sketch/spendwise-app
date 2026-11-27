@@ -85,6 +85,18 @@ public class MainActivity extends Activity {
     private String searchQuery = "";
     private String appliedThemeMode;
 
+    private LinearLayout layoutUndoBanner;
+    private TextView tvUndoMessage;
+    private TextView btnUndoDelete;
+    private Expense lastDeletedExpense;
+    private final android.os.Handler undoHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+    private final Runnable hideUndoRunnable = () -> {
+        if (layoutUndoBanner != null) {
+            layoutUndoBanner.setVisibility(View.GONE);
+        }
+        lastDeletedExpense = null;
+    };
+
     private final BroadcastReceiver updateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -149,6 +161,13 @@ public class MainActivity extends Activity {
         tvEmptyEmoji = findViewById(R.id.tv_empty_emoji);
         tvEmptyTitle = findViewById(R.id.tv_empty_title);
         tvEmptySubtitle = findViewById(R.id.tv_empty_subtitle);
+
+        layoutUndoBanner = findViewById(R.id.layout_undo_banner);
+        tvUndoMessage = findViewById(R.id.tv_undo_message);
+        btnUndoDelete = findViewById(R.id.btn_undo_delete);
+        if (btnUndoDelete != null) {
+            btnUndoDelete.setOnClickListener(v -> undoLastDelete());
+        }
 
         btnMonthSelector = findViewById(R.id.btn_month_selector);
         selectedMonth = new SimpleDateFormat("yyyy-MM", Locale.getDefault()).format(new Date());
@@ -1050,12 +1069,37 @@ public class MainActivity extends Activity {
                 .translationX(-cardForeground.getWidth())
                 .alpha(0f)
                 .setDuration(220)
-                .withEndAction(() -> {
-                    db.deleteExpense(exp.id);
-                    refreshUI();
-                    Toast.makeText(this, "Deleted: " + exp.title, Toast.LENGTH_SHORT).show();
-                })
+                .withEndAction(() -> performDeleteWithUndo(exp))
                 .start();
+    }
+
+    private void performDeleteWithUndo(Expense exp) {
+        lastDeletedExpense = exp;
+        db.deleteExpense(exp.id);
+        refreshUI();
+
+        if (layoutUndoBanner != null && tvUndoMessage != null) {
+            undoHandler.removeCallbacks(hideUndoRunnable);
+            tvUndoMessage.setText(getString(R.string.deleted_undo_msg, exp.title));
+            layoutUndoBanner.setVisibility(View.VISIBLE);
+            undoHandler.postDelayed(hideUndoRunnable, 5000);
+        } else {
+            Toast.makeText(this, getString(R.string.deleted_undo_msg, exp.title), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void undoLastDelete() {
+        undoHandler.removeCallbacks(hideUndoRunnable);
+        if (layoutUndoBanner != null) {
+            layoutUndoBanner.setVisibility(View.GONE);
+        }
+        if (lastDeletedExpense != null) {
+            Expense restored = lastDeletedExpense;
+            lastDeletedExpense = null;
+            db.insertExpense(restored.date, restored.title, restored.category, restored.amount, restored.rawSms);
+            refreshUI();
+            Toast.makeText(this, getString(R.string.restored_msg, restored.title), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showTransactionReceiptDialog(Expense exp) {
@@ -1089,11 +1133,7 @@ public class MainActivity extends Activity {
                 .setTitle("Transaction Receipt 🧾")
                 .setView(layout)
                 .setPositiveButton("Close", null)
-                .setNeutralButton("Delete", (d, w) -> {
-                    db.deleteExpense(exp.id);
-                    refreshUI();
-                    Toast.makeText(this, "Deleted: " + exp.title, Toast.LENGTH_SHORT).show();
-                })
+                .setNeutralButton("Delete", (d, w) -> performDeleteWithUndo(exp))
                 .show();
     }
 

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SpendWise</string>
+    <string name="deleted_undo_msg">Deleted: %1$s</string>
+    <string name="undo_action">UNDO</string>
+    <string name="restored_msg">Restored: %1$s</string>
 </resources>
