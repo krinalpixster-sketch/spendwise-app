@@ -55,6 +55,19 @@ public class InsightsActivity extends Activity {
         TextView tvMonthPill = findViewById(R.id.tv_insights_month_pill);
         tvMonthPill.setText(formatMonthLabel(selectedMonth));
 
+        refreshInsights();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshInsights();
+    }
+
+    private void refreshInsights() {
+        SharedPreferences prefs = getSharedPreferences("spendwise_prefs", MODE_PRIVATE);
+        isPrivacyMode = prefs.getBoolean("privacy_mode", false);
+        String currentYm = new SimpleDateFormat("yyyy-MM", Locale.US).format(new Date());
         renderMonthComparison();
         renderMonthEndForecast(currentYm);
         renderWeeklyPattern();
