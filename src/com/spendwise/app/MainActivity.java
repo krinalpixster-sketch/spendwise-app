@@ -1087,23 +1087,6 @@ public class MainActivity extends Activity {
         tvDetails.setLineSpacing(4, 1.2f);
         layout.addView(tvDetails);
 
-        if (exp.rawSms != null && !exp.rawSms.isEmpty()) {
-            TextView tvSmsHeader = new TextView(this);
-            tvSmsHeader.setText("\nBank SMS Proof / Reference:");
-            tvSmsHeader.setTextColor(getColor(R.color.text_primary));
-            tvSmsHeader.setTextSize(12);
-            tvSmsHeader.setTypeface(null, android.graphics.Typeface.BOLD);
-            layout.addView(tvSmsHeader);
-
-            TextView tvSmsBody = new TextView(this);
-            tvSmsBody.setText(exp.rawSms);
-            tvSmsBody.setTextColor(getColor(R.color.text_muted));
-            tvSmsBody.setTextSize(11);
-            tvSmsBody.setBackgroundResource(R.drawable.card_surface);
-            tvSmsBody.setPadding(20, 16, 20, 16);
-            layout.addView(tvSmsBody);
-        }
-
         new AlertDialog.Builder(this)
                 .setTitle("Transaction Receipt 🧾")
                 .setView(layout)
