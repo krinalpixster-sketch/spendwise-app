@@ -66,14 +66,6 @@ public class SettingsActivity extends Activity {
 
         tvBudgetVal.setText("₹" + currencyFormat.format(db.getBudget()) + " / month");
 
-        View rowOnboarding = findViewById(R.id.row_view_onboarding);
-        if (rowOnboarding != null) {
-            rowOnboarding.setOnClickListener(v -> {
-                Intent intent = new Intent(this, OnboardingActivity.class);
-                startActivity(intent);
-            });
-        }
-
         TextView tvFooterVersion = findViewById(R.id.tv_settings_footer_version);
         if (tvFooterVersion != null) {
             tvFooterVersion.setText("v" + getAppVersionName());
