@@ -87,8 +87,8 @@ public class ExpenseParser {
         // 3. Auto-Categorize
         String category = categorize(smsText + " " + title);
 
-        // 4. Date
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        // 4. Date & Time
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.US);
         String dateStr = sdf.format(new Date());
 
         return new ParsedResult(amount, title, category, dateStr);

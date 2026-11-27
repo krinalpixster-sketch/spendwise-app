@@ -497,7 +497,7 @@ public class MainActivity extends Activity {
                 ? db.getAllExpenses()
                 : db.getExpensesByMonth(selectedMonth);
         for (Expense exp : monthExpenses) {
-            if (todayStr.equals(exp.date)) {
+            if (todayStr.equals(extractDateOnly(exp.date))) {
                 spentToday += exp.amount;
             }
         }
@@ -580,7 +580,7 @@ public class MainActivity extends Activity {
         Set<String> spendDates = new HashSet<>();
         for (Expense exp : monthExpenses) {
             if (exp.date != null && !exp.date.isEmpty()) {
-                spendDates.add(exp.date);
+                spendDates.add(extractDateOnly(exp.date));
             }
         }
 
@@ -832,11 +832,11 @@ public class MainActivity extends Activity {
                 chhotaTotal += exp.amount;
                 chhotaCount++;
             }
-            if (todayStr.equals(exp.date)) {
+            if (todayStr.equals(extractDateOnly(exp.date))) {
                 spentToday += exp.amount;
             }
             if (exp.date != null && !exp.date.isEmpty()) {
-                spendDates.add(exp.date);
+                spendDates.add(extractDateOnly(exp.date));
             }
         }
         double dailyAvg = spent > 0 ? (spent / 30.0) : 0.0;
@@ -1123,7 +1123,7 @@ public class MainActivity extends Activity {
         layout.addView(tvAmt);
 
         TextView tvDetails = new TextView(this);
-        tvDetails.setText("• Category: " + exp.category + "\n• Bank / Source: " + ExpenseParser.extractBankSource(exp.rawSms) + "\n• Date: " + exp.date + "\n• Status: Completed & Verified ✅");
+        tvDetails.setText("• Category: " + exp.category + "\n• Bank / Source: " + ExpenseParser.extractBankSource(exp.rawSms) + "\n• Date & Time: " + exp.date + "\n• Status: Completed & Verified ✅");
         tvDetails.setTextColor(getColor(R.color.text_secondary));
         tvDetails.setTextSize(13);
         tvDetails.setLineSpacing(4, 1.2f);
@@ -1135,6 +1135,12 @@ public class MainActivity extends Activity {
                 .setPositiveButton("Close", null)
                 .setNeutralButton("Delete", (d, w) -> performDeleteWithUndo(exp))
                 .show();
+    }
+
+    private String extractDateOnly(String dateTime) {
+        if (dateTime == null) return "";
+        String trimmed = dateTime.trim();
+        return trimmed.length() >= 10 ? trimmed.substring(0, 10) : trimmed;
     }
 
     private String formatMonthDisplay(String ym) {
@@ -1314,7 +1320,7 @@ public class MainActivity extends Activity {
                         try {
                             double amt = Double.parseDouble(amtStr);
                             String cat = spCategory.getSelectedItem().toString();
-                            String dt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                            String dt = new SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.US).format(new Date());
 
                             double newTotal = currentSpent + amt;
                             if (newTotal > budget) {

@@ -1,6 +1,6 @@
 {
-  "versionCode": 16,
-  "versionName": "2.6.2",
-  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.6.2/SpendWise.apk",
-  "releaseNotes": "↩️ SpendWise v2.6.2 Undo Delete Upgrade:\n• ↩️ Instant Undo Banner: Accidentally deleted a transaction (via swipe or receipt)? Tap UNDO within 5 seconds to restore it immediately!\n• 📊 Real-time SQLite Insights & Clean Receipts"
+  "versionCode": 17,
+  "versionName": "2.6.3",
+  "apkUrl": "https://github.com/krinalpixster-sketch/spendwise-app/releases/download/v2.6.3/SpendWise.apk",
+  "releaseNotes": "🕒 SpendWise v2.6.3 Date & Time + Undo Update:\n• 🕒 Date & Time on Transactions: Every new SMS & manual transaction now records exact time (e.g. 2026-11-27 03:45 PM) in Ledger and Receipt\n• ↩️ Instant Undo Banner: Restore deleted transactions in 1 tap"
 }
